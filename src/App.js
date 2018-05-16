@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import Table from './components/Table/Table';
+import DictUpload from './components/DictUpload/DictUpload';
+import AddFeed from "./components/AddFeed/AddFeed";
 
 class App extends Component {
   render() {
@@ -20,6 +22,8 @@ class App extends Component {
             <h1>Feed Translator</h1>
 
             <Table/>
+            <DictUpload/>
+            <AddFeed/>
         </div>
     );
   }

@@ -7,7 +7,7 @@ class Table extends Component {
 
     constructor() {
         super();
-        this.state = {data: {feeds: [], dictionaries: []}}
+        this.state = {data: {feeds: [], dictionaries: []}};
         this.load = this.load.bind(this);
         this.load();
     }
@@ -66,6 +66,7 @@ class Table extends Component {
                     <th scope="col">Feed</th>
                     <th scope="col">Словари</th>
                     <th scope="col">Ссылка на фид</th>
+                    <th scope="col">Ссылка на  переведенный фид</th>
                     <th scope="col">Действия</th>
                 </tr>
                 </thead>
@@ -115,7 +116,9 @@ class Table extends Component {
                                 })
                                 }
                             </td>
-                            <td><input type="text" onChange={(e) => this.updateFeedLink(e, feed)} defaultValue={feed.link}/></td>
+                            <td><input className="form-control" type="text" onChange={(e) => this.updateFeedLink(e, feed)} defaultValue={feed.link}/></td>
+                            <td><a href={"http://192.168.3.48:83/translate/xml/" + feed.feedName + ".xml"}>Ссылка на перевод</a></td>
+
                             <td>
                                 <button type="button" className="btn btn-danger"
                                         onClick={() => this.deleteFeed(feed)}>Удалить фид
