@@ -33,7 +33,7 @@ class DictUpload extends Component {
         data.append('filename', this.fileName.value);
         data.append('language', ev.target.language.value);
 
-        axios.post(process.env.API_URL + 'uploadDictionary', data)
+        axios.post(process.env.REACT_APP_DEV_API_URL + 'uploadDictionary', data)
             .then(function (response) {
                 alert(response.data.response);
             })

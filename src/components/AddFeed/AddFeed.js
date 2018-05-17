@@ -19,7 +19,7 @@ class AddFeed extends Component {
         const data = new FormData();
         data.append('feedName', this.feedName.value);
 
-        axios.post(process.env.API_URL + 'addFeed', data)
+        axios.post(process.env.REACT_APP_DEV_API_URL + 'addFeed', data)
             .then(function (response) {
                 alert(response.data.response);
             })
