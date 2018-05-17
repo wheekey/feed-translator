@@ -91,7 +91,7 @@ class Api
         if ($feedsRepository->save(new Feed(["feedName" => $_POST["feedName"]]))) {
             echo '{"response": "Success"}';
         } else {
-            echo '{"response": "Failure", "error": "Error while uploading file"}';
+            echo '{"response": "Failure", "error": "Ошибка при добавлении фида"}';
         }
     }
 

@@ -1,6 +1,5 @@
 export function PostData(type, userData) {
-    //let BaseURL = 'http://feed-translator/api/';
-    let BaseURL = 'http://192.168.3.48:83/api/';
+    let BaseURL = process.env.REACT_APP_DEV_API_URL;
 
     return new Promise((resolve, reject) => {
         fetch(BaseURL + type, {

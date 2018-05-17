@@ -117,7 +117,7 @@ class Table extends Component {
                                 }
                             </td>
                             <td><input className="form-control" type="text" onChange={(e) => this.updateFeedLink(e, feed)} defaultValue={feed.link}/></td>
-                            <td><a href={"http://192.168.3.48:83/translate/xml/" + feed.feedName + ".xml"}>Ссылка на перевод</a></td>
+                            <td><a href={process.env.TRANSLATED_FEED_URL + feed.feedName + ".xml"}>Ссылка на перевод</a></td>
 
                             <td>
                                 <button type="button" className="btn btn-danger"

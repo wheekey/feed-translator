@@ -19,7 +19,7 @@ class AddFeed extends Component {
         const data = new FormData();
         data.append('feedName', this.feedName.value);
 
-        axios.post('http://feed-translator/api/' + 'addFeed', data)
+        axios.post(process.env.API_URL + 'addFeed', data)
             .then(function (response) {
                 alert(response.data.response);
             })
