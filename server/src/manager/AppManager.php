@@ -8,11 +8,12 @@
 
 namespace kymbrik\src\manager;
 
-
+use kymbrik\src\analyzer\FeedAnalyzer;
 use kymbrik\src\entity\DictionaryFile;
 use kymbrik\src\entity\FileExtension;
 use kymbrik\src\entity\FileType;
 use kymbrik\src\entity\Language;
+use kymbrik\src\helper\Mailer;
 use Psr\Log\LoggerInterface;
 
 class AppManager
@@ -30,7 +31,6 @@ class AppManager
     public function test()
     {
         $this->logger->info("Оформляем заказ по кадастровому номеру.");
-
     }
 
     /**
@@ -42,6 +42,8 @@ class AppManager
         $feedsRepository = new \kymbrik\src\repository\local\FeedsRepository();
         $dictionariesRepository = new \kymbrik\src\repository\local\DictionariesRepository();
         $feeds = $feedsRepository->findAll();
+
+        $mailer = new Mailer($this->logger);
 
         foreach ($feeds as $feed) {
             $feed->setDictionaries($dictionariesRepository->findAllByFeedId($feed->getId()));
@@ -56,8 +58,26 @@ class AppManager
                 $feedFile->uploadFile($feed->getLink());
                 $translator = new \kymbrik\src\utility\XMLTranslator($dictionaryFile, $feedFile);
                 $translator->translate();
+
+                //Проверим, есть ли рус символы в итоговом файле
+                $feedAnalyzer = new FeedAnalyzer($feedFile);
+
+                if($feedAnalyzer->isExistRussianSymbols())
+                {
+                    $this->logger->info("Есть рус символы в файле: {$feedFile->getFileName()}");
+                }
+                else
+                {
+                    $mailer->send("Файл без рус символов: {$feedFile->getFileName()}", "Файл без рус символов: {$feedFile->getFileName()}", ["ermakov@postel-delux.ru"]);
+
+                    $this->logger->info("Файл без рус символов: {$feedFile->getFileName()}");
+                }
+
             }
         }
+
+
+
     }
 
 }
